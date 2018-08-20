@@ -165,7 +165,7 @@ class _CharactersPageState extends State<CharactersPage> {
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(8.0),
                   hintStyle: TextStyle(color:Colors.white),
-                  hintText: "Enter search ...",
+                  hintText: "Enter name ...",
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(style: BorderStyle.solid, color: Colors.white)
                   ),

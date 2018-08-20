@@ -14,12 +14,10 @@ class CharactersPageBloc {
     int _limit = 30;
     List<Character> _results = List<Character>();
     bool _isLoading = false;
-    StreamController loading = StreamController();
-    RxCommand<String, String> textChangedCommand;
+     RxCommand<String, String> textChangedCommand;
     RxCommand<Criteria, OperationResult<List<Character>>> searchCommand;
     Stream<bool> get isSearching => searchCommand.isExecuting;
-    Stream<bool> get isLoading => loading.stream;
-
+   
     CharactersPageBloc() {
        textChangedCommand = RxCommand.createSync3((term) => term);
        textChangedCommand.results
@@ -29,7 +27,6 @@ class CharactersPageBloc {
            _term = term;
            _offset = 0;
             _results.clear();
-            loading.add(true);
              searchCommand.execute(Criteria(
              limit: _limit,
              offset: _offset,
@@ -43,7 +40,6 @@ class CharactersPageBloc {
     Future<OperationResult<List<Character>>> _search(Criteria criteria) async {
       var op = await Api.fetchCharacters(criteria);
       _isLoading = false;
-      loading.add(false);
       
       if(op.isSuccess) { 
         _offset += op.results.length;
@@ -70,7 +66,7 @@ class CharactersPageBloc {
     void dispose() {
       searchCommand.dispose();
       textChangedCommand.dispose();
-      loading.close();
+     
      
     }
 }
